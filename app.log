@@ -1,0 +1,52 @@
+2026-11-02 22:31:24 | INFO | __main__ | Pipeline START
+2026-11-02 22:31:35 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 22:31:35 | INFO | __main__ | Agent decision: QUOTE | retrieval=56ms llm=10160ms
+2026-11-02 22:31:35 | INFO | __main__ | Pipeline END -> QUOTE | total=10219ms
+2026-11-02 22:49:02 | INFO | __main__ | Human review saved: agent=QUOTE final=QUOTE overridden=False
+2026-11-02 22:58:38 | INFO | pipeline | Pipeline START
+2026-11-02 22:59:08 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 22:59:08 | INFO | pipeline | Agent decision: QUOTE | retrieval=662ms llm=29716ms
+2026-11-02 22:59:08 | INFO | pipeline | Pipeline END -> QUOTE | total=30381ms
+2026-11-02 22:59:08 | INFO | pipeline | Pipeline START
+2026-11-02 22:59:26 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 22:59:26 | INFO | pipeline | Agent decision: QUOTE | retrieval=58ms llm=18004ms
+2026-11-02 22:59:26 | INFO | pipeline | Pipeline END -> QUOTE | total=18063ms
+2026-11-02 22:59:26 | INFO | pipeline | Pipeline START
+2026-11-02 22:59:45 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 22:59:45 | INFO | pipeline | Agent decision: DECLINE | retrieval=44ms llm=18471ms
+2026-11-02 22:59:45 | INFO | pipeline | Pipeline END -> DECLINE | total=18516ms
+2026-11-02 22:59:45 | INFO | pipeline | Pipeline START
+2026-11-02 23:00:05 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 23:00:05 | INFO | pipeline | Agent decision: QUOTE | retrieval=53ms llm=20150ms
+2026-11-02 23:00:05 | INFO | pipeline | Pipeline END -> QUOTE | total=20205ms
+2026-11-02 23:00:05 | INFO | pipeline | Pipeline START
+2026-11-02 23:00:24 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 23:00:24 | INFO | pipeline | Agent decision: DECLINE | retrieval=75ms llm=18704ms
+2026-11-02 23:00:24 | INFO | pipeline | Pipeline END -> DECLINE | total=18780ms
+2026-11-02 23:00:24 | INFO | pipeline | Pipeline START
+2026-11-02 23:00:48 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 23:00:48 | INFO | pipeline | Agent decision: QUOTE | retrieval=55ms llm=24091ms
+2026-11-02 23:00:48 | INFO | pipeline | Pipeline END -> QUOTE | total=24147ms
+2026-11-02 23:00:48 | INFO | pipeline | Pipeline START
+2026-11-02 23:01:10 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 23:01:10 | INFO | pipeline | Agent decision: REFER | retrieval=31ms llm=22388ms
+2026-11-02 23:01:10 | INFO | pipeline | Pipeline END -> REFER | total=22421ms
+2026-11-02 23:01:10 | INFO | pipeline | Pipeline START
+2026-11-02 23:01:36 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 23:01:36 | INFO | pipeline | Agent decision: REFER | retrieval=33ms llm=26068ms
+2026-11-02 23:01:36 | INFO | pipeline | Output guard BLOCKED -> REFER | reason: Output not well grounded in the rules (groundedness=0.20). Possible hallucination — referred for safety.
+2026-11-02 23:01:36 | INFO | pipeline | Pipeline END -> REFER | total=26102ms
+2026-11-02 23:01:36 | INFO | pipeline | Pipeline START
+2026-11-02 23:01:55 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 23:01:55 | INFO | pipeline | Agent decision: QUOTE | retrieval=25ms llm=18251ms
+2026-11-02 23:01:55 | INFO | pipeline | Pipeline END -> QUOTE | total=18276ms
+2026-11-02 23:01:55 | INFO | pipeline | Pipeline START
+2026-11-02 23:02:12 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 23:02:13 | INFO | pipeline | Agent decision: QUOTE | retrieval=25ms llm=17912ms
+2026-11-02 23:02:13 | INFO | pipeline | Pipeline END -> QUOTE | total=17938ms
+2026-11-02 23:02:13 | INFO | pipeline | Pipeline START
+2026-11-02 23:02:24 | INFO | httpx | HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-11-02 23:02:24 | INFO | pipeline | Agent decision: QUOTE | retrieval=29ms llm=11539ms
+2026-11-02 23:02:24 | INFO | pipeline | Pipeline END -> QUOTE | total=11568ms
+2026-11-02 23:02:24 | INFO | pipeline | Pipeline START
+2026-11-02 23:02:24 | INFO | pipeline | Input guard BLOCKED -> REFER | reason: Possible prompt injection detected: 'ignore all'.
