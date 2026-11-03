@@ -50,3 +50,58 @@
 2026-11-02 23:02:24 | INFO | pipeline | Pipeline END -> QUOTE | total=11568ms
 2026-11-02 23:02:24 | INFO | pipeline | Pipeline START
 2026-11-02 23:02:24 | INFO | pipeline | Input guard BLOCKED -> REFER | reason: Possible prompt injection detected: 'ignore all'.
+2026-11-03 06:47:48 | INFO | pipeline | Pipeline START
+2026-11-03 06:47:58 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:47:58 | INFO | pipeline | Agent decision: QUOTE | retrieval=1487ms llm=8422ms
+2026-11-03 06:47:58 | INFO | pipeline | Pipeline END -> QUOTE | total=9911ms
+2026-11-03 06:47:58 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:01 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:48:01 | INFO | pipeline | Agent decision: REFER | retrieval=31ms llm=2710ms
+2026-11-03 06:48:01 | INFO | pipeline | Pipeline END -> REFER | total=2742ms
+2026-11-03 06:48:01 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:03 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:48:03 | INFO | pipeline | Agent decision: QUOTE | retrieval=32ms llm=2254ms
+2026-11-03 06:48:03 | INFO | pipeline | Pipeline END -> QUOTE | total=2287ms
+2026-11-03 06:48:03 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:05 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:48:05 | INFO | pipeline | Agent decision: QUOTE | retrieval=30ms llm=2166ms
+2026-11-03 06:48:05 | INFO | pipeline | Pipeline END -> QUOTE | total=2197ms
+2026-11-03 06:48:05 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:07 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:48:07 | INFO | pipeline | Agent decision: DECLINE | retrieval=36ms llm=2024ms
+2026-11-03 06:48:07 | INFO | pipeline | Pipeline END -> DECLINE | total=2062ms
+2026-11-03 06:48:07 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:09 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:48:09 | INFO | pipeline | Agent decision: DECLINE | retrieval=87ms llm=2177ms
+2026-11-03 06:48:09 | INFO | pipeline | Pipeline END -> DECLINE | total=2267ms
+2026-11-03 06:48:09 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:12 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:48:12 | INFO | pipeline | Agent decision: DECLINE | retrieval=28ms llm=2287ms
+2026-11-03 06:48:12 | INFO | pipeline | Pipeline END -> DECLINE | total=2316ms
+2026-11-03 06:48:12 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:14 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:48:14 | INFO | pipeline | Agent decision: DECLINE | retrieval=21ms llm=2105ms
+2026-11-03 06:48:14 | INFO | pipeline | Pipeline END -> DECLINE | total=2128ms
+2026-11-03 06:48:14 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:16 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:48:16 | INFO | pipeline | Agent decision: REFER | retrieval=25ms llm=1998ms
+2026-11-03 06:48:16 | INFO | pipeline | Pipeline END -> REFER | total=2025ms
+2026-11-03 06:48:16 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:18 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:48:18 | INFO | pipeline | Agent decision: REFER | retrieval=26ms llm=2015ms
+2026-11-03 06:48:18 | INFO | pipeline | Pipeline END -> REFER | total=2041ms
+2026-11-03 06:48:18 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:20 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 06:48:20 | INFO | pipeline | Agent decision: REFER | retrieval=29ms llm=2199ms
+2026-11-03 06:48:20 | INFO | pipeline | Pipeline END -> REFER | total=2229ms
+2026-11-03 06:48:20 | INFO | pipeline | Pipeline START
+2026-11-03 06:48:20 | INFO | pipeline | Input guard BLOCKED -> REFER | reason: Possible prompt injection detected: 'ignore all'.
+2026-11-03 18:10:52 | INFO | __main__ | Pipeline START
+2026-11-03 18:11:10 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 18:11:10 | INFO | __main__ | Agent decision: QUOTE | retrieval=576ms llm=17339ms
+2026-11-03 18:11:10 | INFO | __main__ | Pipeline END -> QUOTE | total=17918ms
+2026-11-03 18:51:43 | INFO | __main__ | Pipeline START
+2026-11-03 18:51:52 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 18:51:52 | INFO | __main__ | Agent decision: QUOTE | retrieval=74ms llm=9037ms
+2026-11-03 18:51:52 | INFO | __main__ | Pipeline END -> QUOTE | total=9115ms
+2026-11-03 18:51:52 | INFO | audit | Audit recorded: ce9bee10-03bf-4fba-b17c-fe47a052eeec -> QUOTE

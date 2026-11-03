@@ -18,6 +18,7 @@ from data_protection import mask_pii
 from agent import assess
 from output_guard import check_output
 from logger import get_logger          # Pipeline 10 — shared logging
+from audit import record_decision      # audit trail (DynamoDB on AWS / file locally)
 
 log = get_logger(__name__)
 
@@ -32,7 +33,7 @@ def run_pipeline(submission_text):
         guard = check_input(submission_text)
         if not guard["safe"]:
             log.info(f"Input guard BLOCKED -> REFER | reason: {guard['reason']}")
-            return {
+            blocked = {
                 "decision": guard["decision"],      # REFER
                 "risk_level": None,
                 "reason": guard["reason"],
@@ -40,6 +41,8 @@ def run_pipeline(submission_text):
                 "rules_used": [],
                 "retrieval_similarity": 0,
             }
+            record_decision(submission_text, blocked)   # audit it
+            return blocked
 
         # --- Pipeline 3: data protection (mask PII) ---
         masked_text, masked_fields = mask_pii(submission_text)
@@ -60,6 +63,7 @@ def run_pipeline(submission_text):
 
         total_ms = round((time.time() - start) * 1000)
         log.info(f"Pipeline END -> {result['decision']} | total={total_ms}ms")
+        record_decision(submission_text, result)       # audit the final decision
         return result
 
     except Exception as e:

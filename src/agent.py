@@ -33,6 +33,28 @@ TOP_K = 6
 MODEL_CONF_THRESHOLD = 0.6     # the LLM's own confidence (0..1)
 RETRIEVAL_THRESHOLD = 0.3      # cosine similarity; MiniLM scores ~0.3-0.5 for good matches
 
+# --- S3 settings (used on AWS; locally we read the files directly) ---
+# The FAISS index is a build artifact, so in production it lives in S3 (durable,
+# decoupled from compute, shareable, versioned) and is downloaded at startup.
+USE_S3 = os.environ.get("USE_S3", "false").lower() == "true"
+S3_BUCKET = os.environ.get("S3_BUCKET", "")
+S3_PREFIX = os.environ.get("S3_PREFIX", "vector_store")   # folder inside the bucket
+
+
+def _download_from_s3():
+    """Download index + chunks from S3 into the local DB_FOLDER (AWS startup)."""
+    import boto3
+    os.makedirs(DB_FOLDER, exist_ok=True)
+    s3 = boto3.client("s3")
+    s3.download_file(S3_BUCKET, f"{S3_PREFIX}/index.faiss", INDEX_FILE)
+    s3.download_file(S3_BUCKET, f"{S3_PREFIX}/chunks.json", CHUNKS_FILE)
+    print(f"Downloaded index + chunks from s3://{S3_BUCKET}/{S3_PREFIX}/")
+
+
+# If running on AWS with USE_S3=true, fetch the index from S3 first.
+if USE_S3:
+    _download_from_s3()
+
 # Load everything once (reused for every submission)
 _model = SentenceTransformer(EMBED_MODEL)
 _index = faiss.read_index(INDEX_FILE)

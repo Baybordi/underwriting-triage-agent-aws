@@ -21,12 +21,15 @@ After every successful call, LAST_USAGE holds the tokens + cost of that call.
 
 import os
 import time
+from dotenv import load_dotenv            # reads the .env file
+
+load_dotenv()                             # loads ANTHROPIC_API_KEY from .env
 
 # ============================================================
 # SETTINGS
 # ============================================================
-PROVIDER = "ollama"                       # "ollama" | "anthropic" | "bedrock"
-FALLBACK_PROVIDER = None                  # e.g. "anthropic" — tried if PROVIDER fails; None = no fallback
+PROVIDER = "anthropic"                    # "ollama" | "anthropic" | "bedrock"
+FALLBACK_PROVIDER = None            # tried if PROVIDER fails (same Claude model, AWS route)
 
 OLLAMA_MODEL = "llama3.2:latest"
 ANTHROPIC_MODEL = "claude-sonnet-4-5"
