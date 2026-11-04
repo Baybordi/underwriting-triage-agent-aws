@@ -105,3 +105,143 @@
 2026-11-03 18:51:52 | INFO | __main__ | Agent decision: QUOTE | retrieval=74ms llm=9037ms
 2026-11-03 18:51:52 | INFO | __main__ | Pipeline END -> QUOTE | total=9115ms
 2026-11-03 18:51:52 | INFO | audit | Audit recorded: ce9bee10-03bf-4fba-b17c-fe47a052eeec -> QUOTE
+2026-11-03 22:46:20 | INFO | __main__ | Pipeline START
+2026-11-03 22:46:26 | ERROR | __main__ | Pipeline ERROR -> REFER | No module named 'anthropic'
+2026-11-03 22:47:16 | INFO | __main__ | Pipeline START
+2026-11-03 22:47:22 | ERROR | __main__ | Pipeline ERROR -> REFER | No module named 'anthropic'
+2026-11-03 22:48:18 | INFO | __main__ | Pipeline START
+2026-11-03 22:48:22 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 22:48:22 | INFO | __main__ | Agent decision: QUOTE | retrieval=27ms llm=4059ms
+2026-11-03 22:48:22 | INFO | __main__ | Pipeline END -> QUOTE | total=4087ms
+2026-11-03 22:48:22 | ERROR | __main__ | Pipeline ERROR -> REFER | You must specify a region.
+2026-11-03 22:49:14 | INFO | __main__ | Pipeline START
+2026-11-03 22:49:19 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 22:49:19 | INFO | __main__ | Agent decision: QUOTE | retrieval=27ms llm=5146ms
+2026-11-03 22:49:19 | INFO | __main__ | Output guard BLOCKED -> REFER | reason: Output not well grounded in the rules (groundedness=0.31). Possible hallucination — referred for safety.
+2026-11-03 22:49:19 | INFO | __main__ | Pipeline END -> REFER | total=5175ms
+2026-11-03 22:49:19 | ERROR | __main__ | Pipeline ERROR -> REFER | An error occurred (ResourceNotFoundException) when calling the PutItem operation: Requested resource not found
+2026-11-03 22:51:32 | INFO | __main__ | Pipeline START
+2026-11-03 22:51:38 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 22:51:38 | INFO | __main__ | Agent decision: QUOTE | retrieval=30ms llm=5468ms
+2026-11-03 22:51:38 | INFO | __main__ | Pipeline END -> QUOTE | total=5499ms
+2026-11-03 22:51:38 | ERROR | __main__ | Pipeline ERROR -> REFER | An error occurred (ResourceNotFoundException) when calling the PutItem operation: Requested resource not found
+2026-11-03 22:52:52 | INFO | __main__ | Pipeline START
+2026-11-03 22:52:57 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-03 22:52:57 | INFO | __main__ | Agent decision: QUOTE | retrieval=28ms llm=5030ms
+2026-11-03 22:52:57 | INFO | __main__ | Pipeline END -> QUOTE | total=5058ms
+2026-11-03 22:52:57 | INFO | audit | Audit recorded: 0ac609ab-e2d0-4545-8de8-92f4f11335ec -> QUOTE
+2026-11-04 09:39:43 | INFO | __main__ | Pipeline START
+2026-11-04 09:39:49 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 09:39:49 | INFO | __main__ | Agent decision: QUOTE | retrieval=367ms llm=5672ms
+2026-11-04 09:39:49 | INFO | __main__ | Pipeline END -> QUOTE | total=6041ms
+2026-11-04 09:39:49 | INFO | audit | Audit recorded: be3dc43a-bd49-442a-ad8e-c22567f91d94 -> QUOTE
+2026-11-04 14:23:14 | INFO | pipeline | Pipeline START
+2026-11-04 14:23:21 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 14:23:21 | INFO | pipeline | Agent decision: REFER | retrieval=382ms llm=6827ms
+2026-11-04 14:23:21 | INFO | pipeline | Pipeline END -> REFER | total=7211ms
+2026-11-04 14:23:21 | INFO | audit | Audit recorded: 11e5a075-046b-4be6-9070-98224a8c5751 -> REFER
+2026-11-04 15:18:32 | INFO | __main__ | Pipeline START
+2026-11-04 15:18:39 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 15:18:39 | INFO | __main__ | Agent decision: QUOTE | retrieval=423ms llm=6859ms
+2026-11-04 15:18:39 | INFO | __main__ | Pipeline END -> QUOTE | total=7284ms
+2026-11-04 15:18:39 | INFO | audit | Audit recorded: 69b380e3-bcc1-4968-9258-36df2db7b516 -> QUOTE
+2026-11-04 17:04:28 | INFO | __main__ | Pipeline START
+2026-11-04 17:04:35 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 17:04:35 | INFO | __main__ | Agent decision: QUOTE | retrieval=418ms llm=6598ms
+2026-11-04 17:04:35 | INFO | __main__ | Pipeline END -> QUOTE | total=7134ms
+2026-11-04 17:04:35 | INFO | audit | Audit recorded: f253d0e7-917a-40b6-84b0-13f6e82464c3 -> QUOTE
+2026-11-04 18:49:48 | INFO | pipeline | Pipeline START
+2026-11-04 18:49:51 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 18:49:51 | INFO | pipeline | Agent decision: REFER | retrieval=8ms llm=2398ms
+2026-11-04 18:49:51 | INFO | pipeline | Pipeline END -> REFER | total=2408ms
+2026-11-04 18:49:51 | INFO | audit | Audit recorded: 4bb86ac7-1b1f-4064-8d1f-d5b82b490133 -> REFER
+2026-11-04 20:16:31 | INFO | sentence_transformers.base.model | No device provided, using cpu
+2026-11-04 20:16:31 | INFO | httpx2 | HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-11-04 20:16:31 | INFO | sentence_transformers.base.model | Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+2026-11-04 20:16:31 | INFO | httpx2 | HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-04 20:16:32 | INFO | httpx2 | HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-04 20:16:32 | INFO | httpx2 | HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+2026-11-04 20:16:32 | INFO | pipeline | Pipeline START
+2026-11-04 20:16:32 | INFO | pipeline | Pipeline START
+2026-11-04 20:16:35 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:16:35 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:16:35 | INFO | pipeline | Agent decision: REFER | retrieval=287ms llm=2379ms
+2026-11-04 20:16:35 | INFO | pipeline | Agent decision: REFER | retrieval=287ms llm=2379ms
+2026-11-04 20:16:35 | INFO | pipeline | Pipeline END -> REFER | total=2667ms
+2026-11-04 20:16:35 | INFO | pipeline | Pipeline END -> REFER | total=2667ms
+2026-11-04 20:16:35 | INFO | audit | Audit recorded: 36f1b1d9-36fa-4059-9bf9-5678cdc2e732 -> REFER
+2026-11-04 20:16:35 | INFO | audit | Audit recorded: 36f1b1d9-36fa-4059-9bf9-5678cdc2e732 -> REFER
+2026-11-04 20:19:11 | INFO | pipeline | Pipeline START
+2026-11-04 20:19:11 | INFO | pipeline | Pipeline START
+2026-11-04 20:19:13 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:19:13 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:19:13 | INFO | pipeline | Agent decision: DECLINE | retrieval=31ms llm=1927ms
+2026-11-04 20:19:13 | INFO | pipeline | Agent decision: DECLINE | retrieval=31ms llm=1927ms
+2026-11-04 20:19:13 | INFO | pipeline | Pipeline END -> DECLINE | total=1961ms
+2026-11-04 20:19:13 | INFO | pipeline | Pipeline END -> DECLINE | total=1961ms
+2026-11-04 20:19:13 | INFO | audit | Audit recorded: 658e1235-286c-4008-92d4-0da5553ae322 -> DECLINE
+2026-11-04 20:19:13 | INFO | audit | Audit recorded: 658e1235-286c-4008-92d4-0da5553ae322 -> DECLINE
+2026-11-04 20:20:36 | INFO | pipeline | Pipeline START
+2026-11-04 20:20:36 | INFO | pipeline | Pipeline START
+2026-11-04 20:20:37 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:20:37 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:20:37 | INFO | pipeline | Agent decision: DECLINE | retrieval=30ms llm=1580ms
+2026-11-04 20:20:37 | INFO | pipeline | Agent decision: DECLINE | retrieval=30ms llm=1580ms
+2026-11-04 20:20:37 | INFO | pipeline | Pipeline END -> DECLINE | total=1612ms
+2026-11-04 20:20:37 | INFO | pipeline | Pipeline END -> DECLINE | total=1612ms
+2026-11-04 20:20:37 | INFO | audit | Audit recorded: 8a9864a0-cf80-4c69-a62d-9754db6df947 -> DECLINE
+2026-11-04 20:20:37 | INFO | audit | Audit recorded: 8a9864a0-cf80-4c69-a62d-9754db6df947 -> DECLINE
+2026-11-04 20:21:26 | INFO | pipeline | Pipeline START
+2026-11-04 20:21:26 | INFO | pipeline | Pipeline START
+2026-11-04 20:21:28 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:21:28 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:21:28 | INFO | pipeline | Agent decision: REFER | retrieval=29ms llm=1866ms
+2026-11-04 20:21:28 | INFO | pipeline | Agent decision: REFER | retrieval=29ms llm=1866ms
+2026-11-04 20:21:28 | INFO | pipeline | Pipeline END -> REFER | total=1897ms
+2026-11-04 20:21:28 | INFO | pipeline | Pipeline END -> REFER | total=1897ms
+2026-11-04 20:21:28 | INFO | audit | Audit recorded: 29c3a28e-3b15-467f-9614-a125779223ac -> REFER
+2026-11-04 20:21:28 | INFO | audit | Audit recorded: 29c3a28e-3b15-467f-9614-a125779223ac -> REFER
+2026-11-04 20:21:45 | INFO | pipeline | Pipeline START
+2026-11-04 20:21:45 | INFO | pipeline | Pipeline START
+2026-11-04 20:21:47 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:21:47 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:21:47 | INFO | pipeline | Agent decision: REFER | retrieval=29ms llm=1835ms
+2026-11-04 20:21:47 | INFO | pipeline | Agent decision: REFER | retrieval=29ms llm=1835ms
+2026-11-04 20:21:47 | INFO | pipeline | Pipeline END -> REFER | total=1866ms
+2026-11-04 20:21:47 | INFO | pipeline | Pipeline END -> REFER | total=1866ms
+2026-11-04 20:21:47 | INFO | audit | Audit recorded: fd7153ea-3e7a-4f2b-9827-0a9989a59f75 -> REFER
+2026-11-04 20:21:47 | INFO | audit | Audit recorded: fd7153ea-3e7a-4f2b-9827-0a9989a59f75 -> REFER
+2026-11-04 20:37:42 | INFO | __main__ | Pipeline START
+2026-11-04 20:37:48 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:37:48 | INFO | __main__ | Agent decision: QUOTE | retrieval=222ms llm=6238ms
+2026-11-04 20:37:48 | INFO | __main__ | Pipeline END -> QUOTE | total=6568ms
+2026-11-04 20:37:49 | INFO | audit | Audit recorded: 370c8214-4479-40f8-96ab-1f3130d8aedf -> QUOTE
+2026-11-04 20:54:58 | INFO | pipeline | Pipeline START
+2026-11-04 20:55:06 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:55:06 | INFO | pipeline | Agent decision: DECLINE | retrieval=563ms llm=7128ms
+2026-11-04 20:55:06 | INFO | pipeline | Pipeline END -> DECLINE | total=7814ms
+2026-11-04 20:55:06 | INFO | audit | Audit recorded: 114b288c-7b14-44d7-b89c-a750c30dbac9 -> DECLINE
+2026-11-04 20:55:23 | INFO | pipeline | Pipeline START
+2026-11-04 20:55:25 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:55:25 | INFO | pipeline | Agent decision: REFER | retrieval=35ms llm=1673ms
+2026-11-04 20:55:25 | INFO | pipeline | Pipeline END -> REFER | total=1768ms
+2026-11-04 20:55:25 | INFO | audit | Audit recorded: 7ef3559d-5365-43d0-b787-367a93aac095 -> REFER
+2026-11-04 20:55:48 | INFO | pipeline | Pipeline START
+2026-11-04 20:55:50 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 20:55:50 | INFO | pipeline | Agent decision: REFER | retrieval=31ms llm=1937ms
+2026-11-04 20:55:50 | INFO | pipeline | Pipeline END -> REFER | total=2017ms
+2026-11-04 20:55:50 | INFO | audit | Audit recorded: 516fdfe4-532d-4be5-b030-c217937f9cce -> REFER
+2026-11-04 21:36:18 | INFO | __main__ | Pipeline START
+2026-11-04 21:36:24 | INFO | httpx2 | HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-11-04 21:36:24 | INFO | __main__ | Agent decision: QUOTE | retrieval=70ms llm=6067ms
+2026-11-04 21:36:24 | INFO | __main__ | Output guard BLOCKED -> REFER | reason: Output not well grounded in the rules (groundedness=0.33). Possible hallucination — referred for safety.
+2026-11-04 21:36:24 | INFO | __main__ | Pipeline END -> REFER | total=6250ms
+2026-11-04 21:36:24 | INFO | audit | Audit recorded: d3378948-b862-4d1d-8299-44e7ec172293 -> REFER
+2026-11-04 21:56:49 | INFO | __main__ | [59b2d7ec][terminal] Pipeline START | version=v2
+2026-11-04 21:56:55 | INFO | __main__ | [59b2d7ec][terminal] Agent decision: QUOTE | retrieval=44ms llm=6057ms
+2026-11-04 21:56:55 | INFO | __main__ | [59b2d7ec][terminal] Pipeline END -> QUOTE | total=6202ms
+2026-11-04 21:56:55 | INFO | audit | [59b2d7ec][terminal] Audit recorded: d56d4530-3161-4348-a455-5a4dbc825d43 -> QUOTE
+2026-11-04 22:00:45 | INFO | pipeline | [d8f25772][streamlit] Pipeline START | version=v2
+2026-11-04 22:00:51 | INFO | pipeline | [d8f25772][streamlit] Agent decision: QUOTE | retrieval=39ms llm=6093ms
+2026-11-04 22:00:51 | INFO | pipeline | [d8f25772][streamlit] Pipeline END -> QUOTE | total=6240ms
+2026-11-04 22:00:51 | INFO | audit | [d8f25772][streamlit] Audit recorded: 0fa91313-6c1c-48c1-9ee5-b90ede1b04e6 -> QUOTE
