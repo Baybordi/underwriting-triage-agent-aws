@@ -231,6 +231,24 @@ def run_evaluation():
     print(f"\nResults saved to {RESULTS_FILE} "
           f"(version {summary['version']['config_version']}, accuracy {summary['system']['accuracy']})")
 
+    # ============================================================
+    # Send evaluation metrics to CloudWatch (Evaluation dimension)
+    # so eval runs appear on the same dashboards as live traffic.
+    # ============================================================
+    try:
+        from metrics import put_metric
+        put_metric("EvalAccuracy", summary["system"]["accuracy"], "None")
+        put_metric("EvalRetrievalRecallAtK", summary["retrieval"]["recall_at_k"], "None")
+        put_metric("EvalMRR", summary["retrieval"]["mrr"], "None")
+        put_metric("EvalHallucinations", summary["llm_output"]["hallucinations"], "Count")
+        for l in labels:
+            prec = tp[l] / (tp[l] + fp[l]) if (tp[l] + fp[l]) else 0
+            rec = tp[l] / (tp[l] + fn[l]) if (tp[l] + fn[l]) else 0
+            put_metric("EvalPrecision", round(prec, 3), "None", {"Class": l})
+            put_metric("EvalRecall", round(rec, 3), "None", {"Class": l})
+    except Exception as e:
+        print(f"[eval] could not send metrics: {e}")
+
 
 if __name__ == "__main__":
     run_evaluation()
