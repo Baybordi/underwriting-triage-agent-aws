@@ -31,6 +31,9 @@ def record_decision(submission_text, result):
     """Save one decision record to the audit trail (DynamoDB on AWS, file locally)."""
     record = {
         "id": str(uuid.uuid4()),                      # unique key
+        "request_id": result.get("request_id", ""),   # same id as in the logs (correlation)
+        "source": result.get("source", ""),           # streamlit / terminal
+        "version": result.get("version", ""),          # which config/model version decided
         "time": time.strftime("%Y-%m-%d %H:%M:%S"),
         "decision": result.get("decision"),
         "risk_level": result.get("risk_level"),
@@ -45,7 +48,8 @@ def record_decision(submission_text, result):
     else:
         _write_local(record)
 
-    log.info(f"Audit recorded: {record['id']} -> {record['decision']}")
+    log.info(f"[{record['request_id']}][{record['source']}] "
+             f"Audit recorded: {record['id']} -> {record['decision']}")
     return record
 
 

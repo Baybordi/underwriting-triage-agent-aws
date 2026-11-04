@@ -99,7 +99,9 @@ class Timer:
 def record_request_metrics(result):
     """Record the per-request metrics from a finished pipeline result."""
     decision = result.get("decision", "UNKNOWN")
+    source = result.get("source", "unknown")
     put_metric("RequestCount", 1, "Count", {"Decision": decision})
+    put_metric("RequestCount", 1, "Count", {"Source": source})   # filter by streamlit/terminal
 
     if result.get("retrieval_ms") is not None:
         put_metric("RetrievalLatencyMs", result["retrieval_ms"], "Milliseconds")

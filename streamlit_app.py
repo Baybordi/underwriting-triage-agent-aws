@@ -54,7 +54,7 @@ submission = st.text_area(
 
 if st.button("Assess submission", type="primary"):
     with st.spinner("Assessing against underwriting rules..."):
-        result = run_pipeline(submission)
+        result = run_pipeline(submission, source="streamlit")
 
     # ---- headline decision ----
     decision = result["decision"]

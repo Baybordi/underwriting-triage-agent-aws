@@ -7,27 +7,26 @@ One place that configures logging for the whole project.
 Every other file does:   from logger import get_logger
                          log = get_logger(__name__)
 
-Why a shared file?  So the log format and destinations are set ONCE and are
-consistent everywhere — and so it is CloudWatch-ready on AWS with no change:
-AWS automatically collects anything written to stdout (console) from Lambda/ECS.
+Design:
+  - Console (stdout)  -> you see it live; CloudWatch captures stdout on AWS.
+  - HOURLY log files  -> app.log rotates every hour into app.log.<YYYY-MM-DD_HH>.
+                         The CloudWatch agent ships each hourly file as its OWN
+                         log stream, so you browse logs by hour, not one long scroll.
 
-We log to TWO places:
-  - console (stdout)        -> you see it live, and CloudWatch captures it on AWS
-  - a local file (app.log)  -> a simple local audit trail for the PoC
+Each pipeline run adds a request id + source to every line (done in pipeline.py),
+so one run is traceable, and you can tell Streamlit requests from terminal runs.
 """
 
 import logging
-import os
+from logging.handlers import TimedRotatingFileHandler
 
-LOG_FILE = "app.log"          # local log file (audit trail)
+LOG_FILE = "app.log"
 LOG_LEVEL = logging.INFO
 
 _configured = False
 
 
 def _configure_once():
-    """Set up handlers a single time (avoids duplicate log lines)."""
-    global _configured
     if _configured:
         return
 
@@ -39,20 +38,27 @@ def _configure_once():
     root = logging.getLogger()
     root.setLevel(LOG_LEVEL)
 
-    # console handler (stdout) -> CloudWatch reads this on AWS
+    # console -> CloudWatch reads this on AWS
     console = logging.StreamHandler()
     console.setFormatter(formatter)
     root.addHandler(console)
 
-    # file handler -> local audit trail
-    file_handler = logging.FileHandler(LOG_FILE, encoding="utf-8")
+    # hourly rotating file: app.log now; previous hours -> app.log.2026-11-04_21
+    file_handler = TimedRotatingFileHandler(
+        LOG_FILE, when="H", interval=1, backupCount=168, encoding="utf-8"
+    )
+    file_handler.suffix = "%Y-%m-%d_%H"        # hourly file name suffix
     file_handler.setFormatter(formatter)
     root.addHandler(file_handler)
 
+    # quiet noisy libraries so logs stay readable
+    for noisy in ("httpx", "httpx2", "httpcore", "urllib3", "boto3", "botocore", "s3transfer"):
+        logging.getLogger(noisy).setLevel(logging.WARNING)
+
+    global _configured
     _configured = True
 
 
 def get_logger(name):
-    """Return a logger for a module. Call get_logger(__name__) in each file."""
     _configure_once()
     return logging.getLogger(name)
