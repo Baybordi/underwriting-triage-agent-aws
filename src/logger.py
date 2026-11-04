@@ -27,6 +27,7 @@ _configured = False
 
 
 def _configure_once():
+    global _configured
     if _configured:
         return
 
@@ -55,7 +56,6 @@ def _configure_once():
     for noisy in ("httpx", "httpx2", "httpcore", "urllib3", "boto3", "botocore", "s3transfer"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
 
-    global _configured
     _configured = True
 
 
