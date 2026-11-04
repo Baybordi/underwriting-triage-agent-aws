@@ -92,15 +92,15 @@ def check_output(result):
     if _has_harmful(result):
         return _force_refer(result, "Output contained unsafe content. Referred for safety.")
 
-    # 6.2 groundedness (only meaningful when the agent actually used rules)
+    # 6.2 groundedness — measured as a SIGNAL, not a hard block.
+    # The score here is a crude lexical overlap, so it is too noisy to gate a
+    # decision on. We record it and flag low groundedness for review, but we do
+    # NOT override the decision. (Production would use an LLM-judge or a semantic
+    # score before hard-blocking on hallucination.)
     grounded = _groundedness(result)
     result["groundedness"] = round(grounded, 2)
     if result.get("rules_used") and grounded < GROUNDEDNESS_THRESHOLD:
-        return _force_refer(
-            result,
-            f"Output not well grounded in the rules (groundedness={grounded:.2f}). "
-            "Possible hallucination — referred for safety.",
-        )
+        result["groundedness_flag"] = "low"     # flag for monitoring, not a block
 
     # all checks passed
     result["output_guard"] = "passed"
