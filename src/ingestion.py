@@ -141,9 +141,12 @@ def build_index():
     print("\n" + "=" * 60 + "\n")
 
     print("Creating embeddings...")
+    import time as _time
+    _t0 = _time.time()
     texts = [c["text"] for c in chunks]
     embeddings = model.encode(texts)
     embeddings = np.array(embeddings, dtype="float32")
+    embedding_ms = round((_time.time() - _t0) * 1000)
 
     # Normalise so that inner-product search == cosine similarity
     faiss.normalize_L2(embeddings)
@@ -161,6 +164,14 @@ def build_index():
     print(f"Done. Indexed {len(chunks)} chunks.")
     print(f"  - {INDEX_FILE}")
     print(f"  - {CHUNKS_FILE}")
+
+    # ---- Ingestion metrics (separate from the runtime agent) ----
+    try:
+        from metrics import put_metric
+        put_metric("ChunksIndexed", len(chunks), "Count", {"Strategy": CHUNK_STRATEGY})
+        put_metric("EmbeddingTimeMs", embedding_ms, "Milliseconds")
+    except Exception as e:
+        print(f"[ingestion] could not send metrics: {e}")
 
     # ---- Prove metadata is stored: show chunk 0 ----
     print("\nVerifying stored chunk 0:")

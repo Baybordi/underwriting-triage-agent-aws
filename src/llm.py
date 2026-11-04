@@ -29,7 +29,7 @@ load_dotenv()                             # loads ANTHROPIC_API_KEY from .env
 # SETTINGS
 # ============================================================
 PROVIDER = "anthropic"                    # "ollama" | "anthropic" | "bedrock"
-FALLBACK_PROVIDER = None            # tried if PROVIDER fails (same Claude model, AWS route)
+FALLBACK_PROVIDER = "bedrock"             # tried if PROVIDER fails (same Claude model, AWS route)
 
 OLLAMA_MODEL = "llama3.2:latest"
 ANTHROPIC_MODEL = "claude-sonnet-4-5"
@@ -59,6 +59,11 @@ def call_llm(prompt, system=""):
         if FALLBACK_PROVIDER:
             print(f"[llm] primary '{PROVIDER}' failed, trying fallback "
                   f"'{FALLBACK_PROVIDER}': {primary_error}")
+            try:
+                from metrics import put_metric
+                put_metric("LLMFallbackTriggered", 1, "Count")   # resilience signal
+            except Exception:
+                pass
             return _call_with_retry(FALLBACK_PROVIDER, prompt, system)
         raise   # no fallback -> let the pipeline fail safe to REFER
 

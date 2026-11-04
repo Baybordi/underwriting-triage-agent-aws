@@ -19,6 +19,8 @@ from agent import assess
 from output_guard import check_output
 from logger import get_logger          # Pipeline 10 — shared logging
 from audit import record_decision      # audit trail (DynamoDB on AWS / file locally)
+from metrics import Timer, put_metric, record_request_metrics   # CloudWatch metrics
+import llm                                                      # to read LAST_USAGE (cost/tokens)
 
 log = get_logger(__name__)
 
@@ -29,8 +31,9 @@ def run_pipeline(submission_text):
     log.info("Pipeline START")
 
     try:
-        # --- Pipeline 2: input protection ---
-        guard = check_input(submission_text)
+        # --- Pipeline 2: input protection (timed) ---
+        with Timer("InputGuardLatencyMs"):
+            guard = check_input(submission_text)
         if not guard["safe"]:
             log.info(f"Input guard BLOCKED -> REFER | reason: {guard['reason']}")
             blocked = {
@@ -42,6 +45,7 @@ def run_pipeline(submission_text):
                 "retrieval_similarity": 0,
             }
             record_decision(submission_text, blocked)   # audit it
+            record_request_metrics(blocked)             # metrics (injection blocked etc.)
             return blocked
 
         # --- Pipeline 3: data protection (mask PII) ---
@@ -49,27 +53,37 @@ def run_pipeline(submission_text):
         if masked_fields:
             log.info(f"PII masked: {masked_fields}")
 
-        # --- Pipeline 4: agent decision ---
+        # --- Pipeline 4: agent decision (retrieval + LLM already timed inside) ---
         result = assess(masked_text)
         result["stage"] = "agent"
         result["masked_fields"] = masked_fields
         log.info(f"Agent decision: {result['decision']} "
                  f"| retrieval={result.get('retrieval_ms')}ms llm={result.get('llm_ms')}ms")
 
-        # --- Pipeline 6: output protection ---
-        result = check_output(result)
+        # --- Pipeline 6: output protection (timed) ---
+        with Timer("OutputGuardLatencyMs"):
+            result = check_output(result)
         if result.get("output_guard") == "blocked":
             log.info(f"Output guard BLOCKED -> REFER | reason: {result['reason']}")
 
         total_ms = round((time.time() - start) * 1000)
         log.info(f"Pipeline END -> {result['decision']} | total={total_ms}ms")
+
+        # attach cost + tokens from the last LLM call (for metrics)
+        result["cost_usd"] = llm.LAST_USAGE.get("cost_usd")
+        result["input_tokens"] = llm.LAST_USAGE.get("input_tokens")
+        result["output_tokens"] = llm.LAST_USAGE.get("output_tokens")
+
+        # --- audit + metrics ---
         record_decision(submission_text, result)       # audit the final decision
+        put_metric("TotalLatencyMs", total_ms, "Milliseconds")
+        record_request_metrics(result)                 # decision, guardrail, latency, cost...
         return result
 
     except Exception as e:
         # --- Pipeline 0: fail safe ---
         log.error(f"Pipeline ERROR -> REFER | {e}")
-        return {
+        err = {
             "decision": "REFER",
             "risk_level": None,
             "reason": f"Unexpected error, referred for safety: {e}",
@@ -77,6 +91,8 @@ def run_pipeline(submission_text):
             "rules_used": [],
             "retrieval_similarity": 0,
         }
+        record_request_metrics(err)                     # emits ErrorCount + IsRefer
+        return err
 
 
 if __name__ == "__main__":
