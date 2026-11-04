@@ -1,19 +1,0 @@
-nohup: ignoring input
-
-Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
-
-2026-11-04 21:59:44.517 Uvicorn server started on 0.0.0.0:8501
-
-  You can now view your Streamlit app in your browser.
-
-  Local URL: http://localhost:8501
-  Network URL: http://172.31.19.214:8501
-  External URL: http://16.60.164.25:8501
-
-Downloaded index + chunks from s3://insurance-underwriting-agent/vector_store/
-Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 4700.45it/s]
-2026-11-04 22:00:45 | INFO | pipeline | [d8f25772][streamlit] Pipeline START | version=v2
-Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 27.67it/s]
-2026-11-04 22:00:51 | INFO | pipeline | [d8f25772][streamlit] Agent decision: QUOTE | retrieval=39ms llm=6093ms
-2026-11-04 22:00:51 | INFO | pipeline | [d8f25772][streamlit] Pipeline END -> QUOTE | total=6240ms
-2026-11-04 22:00:51 | INFO | audit | [d8f25772][streamlit] Audit recorded: 0fa91313-6c1c-48c1-9ee5-b90ede1b04e6 -> QUOTE

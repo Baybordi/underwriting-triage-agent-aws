@@ -1,3 +1,4 @@
 venv/
 __pycache__/
-.env
+.envamazon-cloudwatch-agent.deb
+streamlit.log
