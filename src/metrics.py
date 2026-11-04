@@ -124,9 +124,11 @@ def record_request_metrics(result):
     if result.get("stage") == "error":
         put_metric("ErrorCount", 1, "Count")
 
-    # live groundedness (hallucination signal), when the agent produced an answer
+    # live groundedness (hallucination signals), when the agent produced an answer
     if result.get("groundedness") is not None:
-        put_metric("Groundedness", result["groundedness"], "None")
+        put_metric("Groundedness", result["groundedness"], "None")          # word-overlap
+    if result.get("groundedness_cosine") is not None:
+        put_metric("CosineGroundedness", result["groundedness_cosine"], "None")   # semantic
 
     # cost + tokens of the LLM call (attached by the pipeline from llm.LAST_USAGE)
     if result.get("cost_usd") is not None:

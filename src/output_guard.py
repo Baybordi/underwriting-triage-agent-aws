@@ -26,7 +26,8 @@ import re
 # SETTINGS
 # ============================================================
 VALID_DECISIONS = ("QUOTE", "DECLINE", "REFER")
-GROUNDEDNESS_THRESHOLD = 0.35          # below this -> treat as hallucination
+GROUNDEDNESS_THRESHOLD = 0.35          # word-overlap threshold (crude)
+COSINE_THRESHOLD = 0.45                # semantic (cosine) threshold
 HARMFUL_WORDS = ["kill", "bomb", "terrorist", "racist", "hate"]
 
 
@@ -56,6 +57,32 @@ def _groundedness(result):
     rules_text = " ".join(r["text"] for r in result.get("rules_used", []))
     rules_words = _tokens(rules_text)
     return len(reason_words & rules_words) / len(reason_words)
+
+
+# ============================================================
+# SECTION 6.2b — GROUNDEDNESS by COSINE SIMILARITY (semantic)
+# A better hallucination signal than word overlap: it compares the MEANING
+# of the reason with the retrieved rules, not just shared words.
+# Fully error-safe: returns None if it cannot be computed (never raises).
+# ============================================================
+def _groundedness_cosine(result):
+    try:
+        import numpy as np
+        from agent import _model            # reuse the already-loaded embedder
+
+        reason = result.get("reason", "")
+        rules_text = " ".join(r["text"] for r in result.get("rules_used", []))
+        if not reason or not rules_text:
+            return None
+
+        embs = _model.encode([reason, rules_text])
+        a, b = np.array(embs[0], dtype="float32"), np.array(embs[1], dtype="float32")
+        denom = (np.linalg.norm(a) * np.linalg.norm(b))
+        if denom == 0:
+            return None
+        return round(float(np.dot(a, b) / denom), 3)
+    except Exception:
+        return None            # any problem -> skip silently, no error surfaced
 
 
 # ============================================================
@@ -92,15 +119,25 @@ def check_output(result):
     if _has_harmful(result):
         return _force_refer(result, "Output contained unsafe content. Referred for safety.")
 
-    # 6.2 groundedness — measured as a SIGNAL, not a hard block.
-    # The score here is a crude lexical overlap, so it is too noisy to gate a
-    # decision on. We record it and flag low groundedness for review, but we do
-    # NOT override the decision. (Production would use an LLM-judge or a semantic
-    # score before hard-blocking on hallucination.)
+    # 6.2 groundedness — measured as SIGNALS, not hard blocks (too noisy to gate on).
+    # We compute TWO measures and record both for monitoring:
+    #   (a) word-overlap  : fast, crude
+    #   (b) cosine         : semantic, better hallucination signal
+    # Low values are FLAGGED for review; the decision is not overridden.
+    # (Production would add an LLM-judge before hard-blocking on hallucination.)
+
+    # (a) word-overlap groundedness
     grounded = _groundedness(result)
     result["groundedness"] = round(grounded, 2)
     if result.get("rules_used") and grounded < GROUNDEDNESS_THRESHOLD:
-        result["groundedness_flag"] = "low"     # flag for monitoring, not a block
+        result["groundedness_flag"] = "low"
+
+    # (b) cosine groundedness (semantic) — error-safe, may be None
+    cos = _groundedness_cosine(result)
+    if cos is not None:
+        result["groundedness_cosine"] = cos
+        if result.get("rules_used") and cos < COSINE_THRESHOLD:
+            result["groundedness_cosine_flag"] = "low"
 
     # all checks passed
     result["output_guard"] = "passed"
