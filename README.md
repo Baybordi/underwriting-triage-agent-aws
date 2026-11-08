@@ -10,7 +10,9 @@ underwriting rules using retrieval-augmented generation (RAG), and recommends
 **QUOTE / DECLINE / REFER** with a reason — for a human underwriter to approve or
 override. The agent never makes the final decision.
 
-> **Live demo (while the instance is running):** `http://16.60.164.25:8501`
+
+> > **Note:** Live demo offline to avoid AWS costs — screenshots in `docs/screenshots/`.
+> > ** `http://16.60.164.25:8501
 > *(public IP; it changes if the EC2 instance is stopped/started.)*
 
 ---
